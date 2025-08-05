@@ -1,7 +1,6 @@
 const express = require('express');
 const { TaskModel } = require("./src/models/taskModel");
 const { db } = require('./src/data/connection');
-const { Task }  = require('./src/classes/task');
 const { v4: uuidv4 } = require('uuid');
 
 const app = express();
@@ -37,7 +36,16 @@ app.get('/task/all', async (req, res) => {
     }
 });
 
-// get task by id
+app.get('/task/:id', async (req, res) => {
+    try{
+        const result = await TaskModel.findOne({where: {id: req.params.id}});
+        res.status(200).send(result);
+    }
+    catch(e) {
+        console.error(e)
+        res.send("Internal server error")
+    }
+})
 
 
 app.listen(port, () => {
