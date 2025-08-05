@@ -15,9 +15,9 @@ The backend should be able to:
   - Description (optional field) x
   - Status x
   - Due date/time x
-- Retrieve a task by ID
-- Retrieve all tasks
-- Update the status of a task
+- Retrieve a task by ID x
+- Retrieve all tasks x
+- Update the status of a task x
 - Delete a task
 
 ### Frontend Application

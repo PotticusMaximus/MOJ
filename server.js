@@ -2,11 +2,13 @@ const express = require('express');
 const { TaskModel } = require("./src/models/taskModel");
 const { db } = require('./src/data/connection');
 const { v4: uuidv4 } = require('uuid');
+// const { onlyStatus } = require('./src/utils/middleware')
 
 const app = express();
 const port = 3000;
 const path = require('path');
 const uuid = uuidv4();
+// const status = onlyStatus();
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
@@ -47,6 +49,16 @@ app.get('/task/:id', async (req, res) => {
     }
 })
 
+app.put('/task/:id',async (req, res) => {
+    try{
+        const findTask = await TaskModel.update({status: req.body.status},{where: {id: req.params.id}});
+        res.status(200).send("Status updated");
+    }
+    catch(e) {
+        console.error(e)
+        res.send("Internal server error")
+    }
+})
 
 app.listen(port, () => {
     db.sync();
