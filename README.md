@@ -18,7 +18,7 @@ The backend should be able to:
 - Retrieve a task by ID x
 - Retrieve all tasks x
 - Update the status of a task x
-- Delete a task
+- Delete a task x
 
 ### Frontend Application
 The frontend should be able to:

@@ -60,6 +60,17 @@ app.put('/task/:id',async (req, res) => {
     }
 })
 
+app.delete('/task/:id',async (req, res) => {
+    try{
+        const findTask = await TaskModel.destroy({where: {id: req.params.id}});
+        res.status(200).send(`Task ID: ${req.params.id} deleted`);
+    }
+    catch(e) {
+        console.error(e)
+        res.send("Internal server error")
+    }
+})
+
 app.listen(port, () => {
     db.sync();
     console.log('Listening on port ' + port);
