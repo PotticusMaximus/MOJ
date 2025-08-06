@@ -2,15 +2,11 @@ const express = require('express');
 const cors = require('cors');
 const { TaskModel } = require("./src/models/taskModel");
 const { db } = require('./src/data/connection');
-const { v4: uuidv4 } = require('uuid');
-
 
 const app = express();
 const port = 3000;
 const path = require('path');
-const uuid = uuidv4();
 
-// app.use(express.static(path.join(__dirname, 'public'))); TODO remove
 app.use(cors());
 app.use(express.json());
 
@@ -42,7 +38,9 @@ app.get('/task/all', async (req, res) => {
 app.get('/task/:id', async (req, res) => {
     try{
         const result = await TaskModel.findOne({where: {id: req.params.id}});
-        res.status(200).send(result);
+
+        if(result) {res.status(200).send(result)}
+        else { throw new Error('Not found')};
     }
     catch(e) {
         console.error(e)
@@ -76,3 +74,9 @@ app.listen(port, () => {
     db.sync();
     console.log('Listening on port ' + port);
 })
+
+/* TODO
+
+error handling: on item not found
+
+*/
