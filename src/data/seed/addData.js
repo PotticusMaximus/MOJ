@@ -9,7 +9,7 @@ async function createSeedData(amount) {
                 title:`Task ${i}`,
                 desc:`Test task number ${i}`,
                 status:"incomplete",
-                due: "25th December 2025"
+                due: "2025-12-25"
             }
         );
     }

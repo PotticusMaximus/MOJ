@@ -1,6 +1,6 @@
-export function Grid(id, title, desc, status, due) {
+export function Grid({id, title, desc, status, due, modal}) {
         return <div class="row">
-            <div class="cell">
+            <div class="cell-id">
             <p>ID: {id} </p>
             </div>
             <div class="cell">
@@ -13,7 +13,9 @@ export function Grid(id, title, desc, status, due) {
             <p>Status: {status} </p>
             </div>
             <div class="cell">
-            <p>Due date: {due}</p>
+            <p>Due: {due}</p>
             </div>
+            <button class="taskButton" onClick={modal}>Update</button>
+            <button class="taskButton-delete">Delete</button>
         </div>
     }

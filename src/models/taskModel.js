@@ -6,7 +6,7 @@ const TaskModel = db.define('task', {
     },
     desc: Sequelize.STRING,
     status: Sequelize.STRING,
-    due: Sequelize.STRING,
+    due: Sequelize.DATEONLY,
 });
 
 module.exports = {

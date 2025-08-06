@@ -79,4 +79,8 @@ app.listen(port, () => {
 
 error handling: on item not found
 
+validation: must be in set format of yyy-mm-dd for due
+
+modal: update and create need to share a modal - it should send a fetch request to put or post depending on the button clicked
+
 */
