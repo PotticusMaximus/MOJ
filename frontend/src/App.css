@@ -1,0 +1,35 @@
+/* Core setup */
+body {
+  font-family: "Segoe UI", "Roboto", Arial, sans-serif;
+  color: #333;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+  line-height: 1.5;
+}
+
+/* Header and nav */
+.header, .nav {
+  padding: 10px;
+  background-color: black;
+  color: #fff;
+}
+
+.buttonBar {
+  background-color: white;
+  color: black;
+  margin: 20px;
+}
+
+.taskButton {
+  background-color: #005ea5;
+  color: white;
+  flex-direction: row;
+  padding: 5px;
+  margin-right: 10px;
+}
+
+.taskButton:hover {
+  background-color: green;
+  color: white
+}

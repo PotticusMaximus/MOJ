@@ -1,14 +1,17 @@
 const express = require('express');
+const cors = require('cors');
 const { TaskModel } = require("./src/models/taskModel");
 const { db } = require('./src/data/connection');
 const { v4: uuidv4 } = require('uuid');
+
 
 const app = express();
 const port = 3000;
 const path = require('path');
 const uuid = uuidv4();
 
-app.use(express.static(path.join(__dirname, 'public')));
+// app.use(express.static(path.join(__dirname, 'public'))); TODO remove
+app.use(cors());
 app.use(express.json());
 
 app.get('/task', (req, res) => {
