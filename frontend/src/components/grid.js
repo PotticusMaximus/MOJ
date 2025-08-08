@@ -1,21 +1,21 @@
-export function Grid({id, title, desc, status, due, modal}) {
-        return <div class="row">
-            <div class="cell-id">
+export function Grid({id, title, desc, status, due, modal, msgModal}) {
+        return <div className="row">
+            <div className="cell-id">
             <p>ID: {id} </p>
             </div>
-            <div class="cell">
+            <div className="cell">
             <p>Title: {title} </p>
             </div>
-            <div class="cell-desc">
+            <div className="cell-desc">
             <p>Description: {desc} </p>
             </div>
-            <div class="cell">
+            <div className="cell">
             <p>Status: {status} </p>
             </div>
-            <div class="cell">
+            <div className="cell">
             <p>Due: {due}</p>
             </div>
-            <button class="taskButton" onClick={modal}>Update</button>
-            <button class="taskButton-delete">Delete</button>
+            <button className="taskButton" onClick={() => modal("Update Existing", {id, title, desc, status, due})}>Update</button>
+            <button className="taskButton-delete" onClick={() => msgModal("Are you sure you want to delete?", {id, title, desc, status, due})}>Delete</button>
         </div>
     }

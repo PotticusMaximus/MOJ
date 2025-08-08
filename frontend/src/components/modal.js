@@ -1,18 +1,38 @@
 import ReactModal from 'react-modal';
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 ReactModal.setAppElement("#root");
 
-export function TaskModal({isOpen, onClose}) {
+export function TaskModal({isOpen, onClose, setModalTask, taskType, processTask, updateTask}) {
 
 const [title, setTitle] = useState('');
 const [desc, setDesc] = useState('');
 const [status, setStatus] = useState('');
 const [due, setDue] = useState('');
+const [id, setId] = useState('');
+const [task, setTask] = useState({});
 
 const getTask = () => {
-    return {title, desc, status, due}
+    const newTask = { id, title, desc, status, due };
+    setModalTask(newTask)
+    console.log(`New Task: ${newTask}`);
+    processTask(newTask);
   }
+
+  useEffect(() => {
+    if(updateTask){
+        setTask(updateTask);
+    }
+  if (task) {
+    setTitle(task.title || "");
+    setDesc(task.desc || "");
+    setStatus(task.status || "");
+    setDue(task.due || "");
+    setId(task.id || "");
+    console.log(`Modal task: ${JSON.stringify(task)}`)
+}
+}, [task, updateTask]);
+
 
     return <ReactModal
       isOpen={isOpen}
@@ -20,20 +40,29 @@ const getTask = () => {
       contentLabel="Task Modal"
       style={{
         content: {
-          width: "400px",
-          margin: "auto",
+        justify: "center",
+        padding:0,
+        border: "2px solid black",
+        width: "30%",
+        margin: "auto",
         },
       }}
     >
-        <div class="header">
-        <h2>Create Task</h2>
+        <div className="header">
+        <h2>{taskType} Task</h2>
         </div>
-<div>
+<div style={{marginLeft:"10px"}}>
     <p>Task Title: </p>
     <input placeholder='Type task title...' onChange={(e)=> {
     setTitle(e.target.value)}}></input>
     <p>Description: </p>
-    <input placeholder='Task details...' onChange={(e)=> {
+    <input style={{
+    width: "80%",
+    height: "24px",
+    boxSizing: "border-box",
+    padding: "4px 8px",
+    border: "1px solid #ccc"
+  }} placeholder='Task details...' onChange={(e)=> {
     setDesc(e.target.value);
   }}></input>
     <p>Status: </p>
@@ -45,9 +74,16 @@ const getTask = () => {
     setDue(e.target.value);
   }}></input>
 </div>
-<div>
-    <button class="taskButton" onClick={getTask}>Update</button>
-    <button class="taskButton-delete" onClick={onClose}>Cancel</button>
+<div style={{marginLeft:"10px"}}>
+    <button
+  className="taskButton"
+  onClick={() => {
+    getTask()
+  }}
+>
+  Update
+</button>
+    <button className="taskButton-delete" onClick={onClose}>Cancel</button>
 </div>
 
 

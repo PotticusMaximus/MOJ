@@ -22,8 +22,8 @@ The backend should be able to:
 
 ### Frontend Application
 The frontend should be able to:
-- Create, view, update, and delete tasks
-- Display tasks in a user-friendly interface
+- Create, view, update, and delete tasks x
+- Display tasks in a user-friendly interface x
 
 ## Technical Requirements
 Here are a few starter repositories if you would like to use our tech stack:

@@ -1,6 +1,14 @@
 const { TaskModel } = require("../../models/taskModel");
 const { db } = require('../connection');
 
+function generateRandomDate() {
+    const year = Math.floor(Math.random() * (2026 - 2050) + 2050).toString();
+    const month = Math.floor(Math.random() * (1 - 12) + 12).toString();
+    const day = Math.floor(Math.random() * (1 - 28) + 28).toString();
+
+    return (`${year}-${month}-${day}`);
+}
+
 async function createSeedData(amount) {
 
     for(let i=0; i<amount; i++){
@@ -9,7 +17,7 @@ async function createSeedData(amount) {
                 title:`Task ${i}`,
                 desc:`Test task number ${i}`,
                 status:"incomplete",
-                due: "2025-12-25"
+                due: generateRandomDate()
             }
         );
     }

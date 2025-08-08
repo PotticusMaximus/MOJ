@@ -50,7 +50,7 @@ app.get('/task/:id', async (req, res) => {
 
 app.put('/task/:id',async (req, res) => {
     try{
-        const findTask = await TaskModel.update({status: req.body.status},{where: {id: req.params.id}});
+        const findTask = await TaskModel.update(req.body,{where: {id: req.params.id}});
         res.status(200).send("Status updated");
     }
     catch(e) {
@@ -81,6 +81,5 @@ error handling: on item not found
 
 validation: must be in set format of yyy-mm-dd for due
 
-modal: update and create need to share a modal - it should send a fetch request to put or post depending on the button clicked
 
 */
