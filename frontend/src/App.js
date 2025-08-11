@@ -1,6 +1,5 @@
-import logo from './logo.svg';
 import './App.css';
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Grid } from './components/grid';
 import { TaskModal } from './components/modal';
 import { MessageModal } from './components/message';
@@ -10,7 +9,6 @@ function App() {
   const [searchInput, setSearchInput] = useState([]);
   const [modal, setModal] = useState(false);
   const [msgModal, setMsgModal] = useState(false);
-  const [gridTask, setGridTask] = useState({});
   const [msg, setMsg] = useState('');
   const [modalTask, setModalTask] = useState({});
   const [type, setType] = useState('');
@@ -27,7 +25,7 @@ async function getOneTask(){
   }
 
 async function deleteTask(id) {
-    const taskDelete = await fetch(`http://localhost:3000/task/${id}`, {method: "DELETE"});
+    await fetch(`http://localhost:3000/task/${id}`, {method: "DELETE"});
     const data = await fetch("http://localhost:3000/task/all").then((res)=> res.json());
     setTasks(data);
     closeMsgModal()
@@ -89,7 +87,7 @@ async function processTask(task) {
   const closeModal = () => {
     setModal(false);
     setType('');
-    setModalTask({}); //TODO may need to be removed
+    setModalTask({});
   };
   const modalTasks = (task) => {
     setModalTask(task);

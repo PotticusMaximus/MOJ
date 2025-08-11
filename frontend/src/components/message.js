@@ -15,6 +15,7 @@ export function MessageModal({message, relatedTask, setModalTask, isOpen, onClos
         padding:0,
         border: "2px solid black",
         width: "30%",
+        height: "40%",
         margin: "auto",
         },
       }}

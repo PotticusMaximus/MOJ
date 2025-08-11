@@ -1,5 +1,8 @@
 import ReactModal from 'react-modal';
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { ValidationBox } from './validationBox';
+import Datepicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 ReactModal.setAppElement("#root");
 
@@ -11,12 +14,20 @@ const [status, setStatus] = useState('');
 const [due, setDue] = useState('');
 const [id, setId] = useState('');
 const [task, setTask] = useState({});
+const [validation, setValidation] = useState(false);
+const [message, setMessage] = useState('');
 
 const getTask = () => {
     const newTask = { id, title, desc, status, due };
     setModalTask(newTask)
-    console.log(`New Task: ${newTask}`);
     processTask(newTask);
+  }
+
+async function checkTitle(input){
+    const data = await fetch("http://localhost:3000/task/all").then((res)=> res.json());
+    const valid = data.some((a) =>(a.title === input && a.id !== id));
+    setMessage("Title must be unique");
+    setValidation(valid);
   }
 
   useEffect(() => {
@@ -29,7 +40,6 @@ const getTask = () => {
     setStatus(task.status || "");
     setDue(task.due || "");
     setId(task.id || "");
-    console.log(`Modal task: ${JSON.stringify(task)}`)
 }
 }, [task, updateTask]);
 
@@ -43,18 +53,19 @@ const getTask = () => {
         justify: "center",
         padding:0,
         border: "2px solid black",
-        width: "30%",
+        width: "40%",
         margin: "auto",
         },
       }}
     >
         <div className="header">
-        <h2>{taskType} Task</h2>
+        <h2>{taskType} task {id}</h2>
         </div>
-<div style={{marginLeft:"10px"}}>
+<div style={{marginLeft:"50px"}}>
     <p>Task Title: </p>
-    <input placeholder='Type task title...' onChange={(e)=> {
-    setTitle(e.target.value)}}></input>
+    <input placeholder='Type task title...' value={title} onChange={(e)=> {
+        if(checkTitle(e.target.value)) {
+    setTitle(e.target.value)}}}></input>
     <p>Description: </p>
     <input style={{
     width: "80%",
@@ -62,29 +73,30 @@ const getTask = () => {
     boxSizing: "border-box",
     padding: "4px 8px",
     border: "1px solid #ccc"
-  }} placeholder='Task details...' onChange={(e)=> {
+  }} placeholder='Task details...' value={desc} onChange={(e)=> {
     setDesc(e.target.value);
   }}></input>
     <p>Status: </p>
-    <input placeholder='current task status...' onChange={(e)=> {
+    <input placeholder='current task status...' value={status} onChange={(e)=> {
     setStatus(e.target.value);
   }}></input>
     <p>Due date: </p>
-    <input style={{marginBottom: "5px"}} placeholder='YYYY-MM-DD format' onChange={(e)=> {
-    setDue(e.target.value);
-  }}></input>
+    <Datepicker selected={due} onChange={(date) => setDue(date)} />
 </div>
-<div style={{marginLeft:"10px"}}>
-    <button
+<div style={{marginLeft:"50px", marginTop:"20px"}}>
+    <button disabled={validation}
   className="taskButton"
   onClick={() => {
+    if (!validation) {
     getTask()
+    }
   }}
 >
-  Update
+  Proceed
 </button>
     <button className="taskButton-delete" onClick={onClose}>Cancel</button>
 </div>
+<ValidationBox style={{marginLeft:"50px"}} message={`** ${message}`} visible={validation}/>
 
 
 </ReactModal>

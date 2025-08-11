@@ -79,7 +79,10 @@ app.listen(port, () => {
 
 error handling: on item not found
 
-validation: must be in set format of yyy-mm-dd for due
+validation:
+Status: RAG status
+
+UI: Due appears red when due date is close
 
 
 */

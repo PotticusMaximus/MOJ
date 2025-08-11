@@ -39,6 +39,11 @@ body {
   color: white
 }
 
+.taskButton:disabled {
+  background-color: grey;
+  color: white
+}
+
 .taskButton-delete:hover {
   background-color: red;
   color: white
@@ -87,3 +92,7 @@ body {
   margin-right: 5px;
 }
 
+.validation-text {
+  color: red;
+  font-weight: bold;
+}
