@@ -3,10 +3,11 @@ import { useEffect, useState } from "react";
 import { Grid } from './components/grid';
 import { TaskModal } from './components/modal';
 import { MessageModal } from './components/message';
+import { ValidationBox } from './components/validationBox';
 
 function App() {
   const [tasks, setTasks] = useState([]);
-  const [searchInput, setSearchInput] = useState([]);
+  const [searchInput, setSearchInput] = useState('');
   const [modal, setModal] = useState(false);
   const [msgModal, setMsgModal] = useState(false);
   const [msg, setMsg] = useState('');
@@ -14,13 +15,14 @@ function App() {
   const [type, setType] = useState('');
 
 async function getTasks(){
-    const data = await fetch("http://localhost:3000/task/all").then((res)=> res.json());
-    return setTasks(data);
-  }
-
-async function getOneTask(){
     const id = searchInput;
-    const data = await fetch(`http://localhost:3000/task/${id}`).then((res)=> res.json());
+    if(!checkForId(id) && id) {
+      return openMsgModal(`ID: ${id} Not found.`, null);
+    }
+    let data = id? await fetch(`http://localhost:3000/task/${id}`).then((res)=> res.json()) :
+    await fetch("http://localhost:3000/task/all").then((res)=> res.json());
+
+    setSearchInput('');
     return setTasks(data);
   }
 
@@ -104,6 +106,11 @@ async function processTask(task) {
     setModalTask({});
   };
 
+  const checkForId = (thisId) => {
+    if (!thisId) return false;
+    return tasks.some((e) => {return thisId == e.id});
+  }
+
   useEffect(() => {
     fetch("http://localhost:3000/task/all")
       .then((res) => res.json())
@@ -116,8 +123,13 @@ async function processTask(task) {
       <div className="buttonBar">
         <button className="taskButton" onClick={() => openModal('Create', {})}>Create Task</button>
         <button className="taskButton" onClick={getTasks}>Show all</button>
-        <button className="taskButton" onClick={getOneTask}>Search by ID</button>
-        <input onChange={handleSearchInput}></input>
+        <button className="taskButton" onClick={getTasks}>Search by ID</button>
+        <input onChange={handleSearchInput} onKeyDown={(e) => {
+          if(e.key === "Enter") {
+            getTasks()
+            e.target.value = '';
+          };
+        }}></input>
       </div>
       <div className="grid">
         {handleTasks(tasks)}

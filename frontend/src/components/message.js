@@ -2,8 +2,23 @@ import ReactModal from 'react-modal';
 
 ReactModal.setAppElement("#root");
 
-export function MessageModal({message, relatedTask, setModalTask, isOpen, onClose, deleteTask}) {
+export function MessageModal({message, relatedTask, isOpen, onClose, deleteTask}) {
 
+    const information = () => {
+        if (relatedTask) {
+            return <div style={{marginLeft:"10px"}}>
+    <p>ID: {relatedTask.id}</p>
+    <p>Task Title: {relatedTask.title}</p>
+    <p>Description: {relatedTask.desc} </p>
+    <p>Status: {relatedTask.status}</p>
+    <p>Due date: {relatedTask.due} </p>
+    </div>
+        } else {
+            return <div style={{marginLeft:"10px"}}>
+            <p>Not Found</p>
+            </div>
+        }
+    }
 
     return <ReactModal
       isOpen={isOpen}
@@ -23,19 +38,16 @@ export function MessageModal({message, relatedTask, setModalTask, isOpen, onClos
         <div className="header">
         <h2>{message}</h2>
         </div>
-<div style={{marginLeft:"10px"}}>
-    <p>ID: {relatedTask.id}</p>
-    <p>Task Title: {relatedTask.title}</p>
-    <p>Description: {relatedTask.desc} </p>
-    <p>Status: {relatedTask.status}</p>
-    <p>Due date: {relatedTask.due} </p>
-</div>
+      <>
+      {information()}
+      </>
 <div style={{marginLeft:"10px"}}>
     <button
   className="taskButton-delete"
   onClick={() => {
     deleteTask(relatedTask.id);
   }}
+  disabled={!relatedTask}
 >
   Delete
 </button>

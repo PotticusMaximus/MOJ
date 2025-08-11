@@ -67,19 +67,27 @@ async function checkTitle(input){
         if(checkTitle(e.target.value)) {
     setTitle(e.target.value)}}}></input>
     <p>Description: </p>
-    <input style={{
-    width: "80%",
-    height: "24px",
+    <textarea style={{
+    fontFamily: "inherit",
+    maxWidth: "80%",
+    maxHeight: "200px",
     boxSizing: "border-box",
     padding: "4px 8px",
     border: "1px solid #ccc"
   }} placeholder='Task details...' value={desc} onChange={(e)=> {
     setDesc(e.target.value);
-  }}></input>
+  }}></textarea>
     <p>Status: </p>
-    <input placeholder='current task status...' value={status} onChange={(e)=> {
+    <textarea style={{
+    fontFamily: "inherit",
+    maxWidth: "80%",
+    maxHeight: "100px",
+    boxSizing: "border-box",
+    padding: "4px 8px",
+    border: "1px solid #ccc"
+  }} placeholder='current task status...' value={status} onChange={(e)=> {
     setStatus(e.target.value);
-  }}></input>
+  }}></textarea>
     <p>Due date: </p>
     <Datepicker selected={due} onChange={(date) => setDue(date)} />
 </div>
