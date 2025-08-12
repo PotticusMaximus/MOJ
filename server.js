@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const { TaskModel } = require("./src/models/taskModel");
 const { db } = require('./src/data/connection');
+const { dateSetter } = require('./src/utils');
 
 const app = express();
 const port = 3000;
@@ -27,8 +28,15 @@ app.post('/task/newTask', async (req, res) => {
 
 app.get('/task/all', async (req, res) => {
     try {
-    const result = await TaskModel.findAll()
-    res.send(JSON.stringify(result));
+    const result = await TaskModel.findAll();
+    const setDates = result.map(task => ({
+        id:task.id,
+        title: task.title,
+        desc: task.desc,
+        status: task.status,
+        due: dateSetter(task.due)}));
+    console.log(JSON.stringify(setDates));
+    res.send(JSON.stringify(setDates));
     } catch {
         console.error("No records found")
         res.send("Internal server error")
@@ -79,10 +87,15 @@ app.listen(port, () => {
 
 error handling: on item not found
 
-validation:
-Status: RAG status
+Filtering:
+by task due
+by ID order
 
-UI: Due appears red when due date is close
+UI:
+Show how many tasks are loaded (mobile friendly)
+
+Search:
+By name
 
 
 */

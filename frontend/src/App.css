@@ -63,48 +63,72 @@ body {
 
 .grid{
   width: 85%;
+  padding-bottom: 20px;
   justify-self: center;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  align-items: stretch;
 }
 
 .row {
-  align-self: center;
-  color: black;
-  margin: 2px;
-  display: flex;
-  flex-direction:row;
+  align-items: stretch;
+  grid-template-columns: 0.8fr 1fr 2.5fr 1fr 1fr 0.5fr 0.5fr;
+  gap: 5px;
+  row-gap: 5px;
+  display: grid;
+}
+
+.rowHeader {
+  align-items: stretch;
+  background-color: black;
+  grid-template-columns: 0.8fr 1fr 2.5fr 1fr 1fr 0.5fr 0.5fr;
+  gap: 5px;
+  display: grid;
 }
 
 .cell {
-  flex-wrap: wrap;
   background-color: white;
-  width: 15%;
-  display: flex;
+  text-align: center;
   border: 1px solid #333;
   padding: 2px;
-  margin-right: 5px;
 }
 
-.cell-desc {
-  flex-wrap: wrap;
-  background-color: white;
-  width: 40%;
-  display: flex;
-  border: 1px solid #333;
+.cellHeader {
+  text-align: center;
+  background-color: black;
+  color: white;
   padding: 2px;
-  margin-right: 5px;
-}
-
-.cell-id {
-  flex-wrap: wrap;
-  background-color: white;
-  width: 10%;
-  display: flex;
-  border: 1px solid #333;
-  padding: 2px;
-  margin-right: 5px;
 }
 
 .validation-text {
   color: red;
   font-weight: bold;
+}
+
+/* Mobile friendly styling */
+
+@media (max-width: 768px) {
+  .row,
+  .rowHeader {
+    grid-template-columns: 1fr;
+  }
+
+  .cell {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #333;
+    padding: 8px;
+  }
+
+  .cell[data-label]::before {
+    content: attr(data-label);
+    font-weight: bold;
+    margin-bottom: 4px;
+    color: #555;
+  }
+
+  .rowHeader {
+    display: none;
+  }
 }

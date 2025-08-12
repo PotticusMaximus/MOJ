@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { Grid } from './components/grid';
 import { TaskModal } from './components/modal';
 import { MessageModal } from './components/message';
-import { ValidationBox } from './components/validationBox';
 
 function App() {
   const [tasks, setTasks] = useState([]);
@@ -132,6 +131,25 @@ async function processTask(task) {
         }}></input>
       </div>
       <div className="grid">
+        <div className="rowHeader">
+            <div className="cellHeader">
+            <h3>ID </h3>
+            </div>
+            <div className="cellHeader">
+            <h3>Title </h3>
+            </div>
+            <div className="cellHeader">
+            <h3>Description </h3>
+            </div>
+            <div className="cellHeader">
+            <h3>Status </h3>
+            </div>
+            <div className="cellHeader">
+            <h3>Due</h3>
+            </div>
+            <div ></div>
+            <div></div>
+        </div>
         {handleTasks(tasks)}
       </div>
       {handleModal()}
