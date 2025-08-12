@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Grid } from './components/grid';
 import { TaskModal } from './components/modal';
 import { MessageModal } from './components/message';
+import { orderByDate } from './components/utils';
 
 function App() {
   const [tasks, setTasks] = useState([]);
@@ -12,6 +13,7 @@ function App() {
   const [msg, setMsg] = useState('');
   const [modalTask, setModalTask] = useState({});
   const [type, setType] = useState('');
+  const [sortDate, setSortDate] = useState(true);
 
 async function getTasks(){
     const id = searchInput;
@@ -118,10 +120,13 @@ async function processTask(task) {
 
   return (
     <div>
-      <h1>MOJ Task Manager</h1>
+      <h1 style={{paddingLeft:"20px"}}>MOJ Task Manager</h1>
       <div className="buttonBar">
-        <button className="taskButton" onClick={() => openModal('Create', {})}>Create Task</button>
-        <button className="taskButton" onClick={getTasks}>Show all</button>
+         <button className="taskButton" title="Create new Task" style={{fontSize:"large", fontWeight:"bold", minWidth:"30px"}} onClick={() => openModal('Create', {})}>+</button>
+        <button className="taskButton" onClick={getTasks}>Fetch all by ID</button>
+        <button className="taskButton" onClick={() => {setTasks(orderByDate(tasks, sortDate))
+              setSortDate(!sortDate);
+            }}>Fetch by due date {sortDate? "ascending" : "descending"}</button>
         <button className="taskButton" onClick={getTasks}>Search by ID</button>
         <input onChange={handleSearchInput} onKeyDown={(e) => {
           if(e.key === "Enter") {
@@ -147,7 +152,8 @@ async function processTask(task) {
             <div className="cellHeader">
             <h3>Due</h3>
             </div>
-            <div ></div>
+            <div>
+            </div>
             <div></div>
         </div>
         {handleTasks(tasks)}

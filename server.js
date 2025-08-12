@@ -35,7 +35,6 @@ app.get('/task/all', async (req, res) => {
         desc: task.desc,
         status: task.status,
         due: dateSetter(task.due)}));
-    console.log(JSON.stringify(setDates));
     res.send(JSON.stringify(setDates));
     } catch {
         console.error("No records found")

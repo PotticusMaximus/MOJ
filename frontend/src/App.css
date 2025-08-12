@@ -15,7 +15,9 @@ body {
 
 .buttonBar {
   background-color: white;
+  width:auto;
   color: black;
+  display:flex;
   margin: 20px;
   flex-direction: row;
 }
@@ -131,4 +133,5 @@ body {
   .rowHeader {
     display: none;
   }
+
 }

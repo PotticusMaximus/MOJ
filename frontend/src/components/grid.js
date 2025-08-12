@@ -1,3 +1,5 @@
+import { reverseDate } from "./utils";
+
 export function Grid({id, title, desc, status, due, modal, msgModal}) {
 
 function calculateDate(dueDate) {
@@ -5,8 +7,7 @@ function calculateDate(dueDate) {
     return "white";
     }
 
-    const reverse = dueDate.split('-').reverse().join('-');
-    const diff = Math.floor((Date.parse(reverse) - Date.now()) / 86_400_000);
+    const diff = Math.floor((Date.parse(reverseDate(dueDate)) - Date.now()) / 86_400_000);
 
     if (diff < 7) return "red";
     if (diff >= 7 && diff < 14) return "orange";
