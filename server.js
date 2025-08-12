@@ -86,12 +86,8 @@ app.listen(port, () => {
 
 error handling: on item not found
 
-Filtering:
-by task due
-by ID order
-
-UI:
-Show how many tasks are loaded (mobile friendly)
+Tests / Bugs
+Invalid time value
 
 Search:
 By name

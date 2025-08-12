@@ -4,6 +4,7 @@ import { Grid } from './components/grid';
 import { TaskModal } from './components/modal';
 import { MessageModal } from './components/message';
 import { orderByDate } from './components/utils';
+import { FaSearch, FaPlus, FaSortAmountDown, FaSortAmountUp } from 'react-icons/fa';
 
 function App() {
   const [tasks, setTasks] = useState([]);
@@ -119,21 +120,26 @@ async function processTask(task) {
   }, []);
 
   return (
-    <div>
-      <h1 style={{paddingLeft:"20px"}}>MOJ Task Manager</h1>
+    <>
+  <div className="page">
+    <div className='titleBox'>
+      <h1>Task Manager</h1>
+      <h2>Tasks on page: {`${tasks.length || 1}` }</h2>
+    </div>
       <div className="buttonBar">
-         <button className="taskButton" title="Create new Task" style={{fontSize:"large", fontWeight:"bold", minWidth:"30px"}} onClick={() => openModal('Create', {})}>+</button>
-        <button className="taskButton" onClick={getTasks}>Fetch all by ID</button>
-        <button className="taskButton" onClick={() => {setTasks(orderByDate(tasks, sortDate))
+         <button className="taskButton" title="Create new Task" style={{fontSize:"large", minWidth:"30px"}} onClick={() => openModal('Create', {})}><FaPlus/></button>
+        <button className="taskButton" title="Sort List by ID" onClick={getTasks}> ID <FaSortAmountUp/></button>
+        <button className="taskButton" title="Sort List by Due Date" onClick={() => {setTasks(orderByDate(tasks, sortDate))
               setSortDate(!sortDate);
-            }}>Fetch by due date {sortDate? "ascending" : "descending"}</button>
-        <button className="taskButton" onClick={getTasks}>Search by ID</button>
-        <input onChange={handleSearchInput} onKeyDown={(e) => {
+            }}>Due {sortDate? <FaSortAmountDown/> : <FaSortAmountUp/>}</button>
+             <input placeholder='ID to search...' style={{marginLeft:"20px", marginRight:"5px", width:"25%", maxWidth:"25%"}}onChange={handleSearchInput} onKeyDown={(e) => {
           if(e.key === "Enter") {
             getTasks()
             e.target.value = '';
           };
         }}></input>
+        <button className="taskButton" title="Search for task ID" onClick={getTasks} style={{fontSize:"large", minWidth:"30px"}}><FaSearch/></button>
+
       </div>
       <div className="grid">
         <div className="rowHeader">
@@ -160,7 +166,18 @@ async function processTask(task) {
       </div>
       {handleModal()}
       {handleMsgModal()}
+
+  </div>
+  <footer className='footerStyle'>
+    <div className='footBar'>
+    <img src="https://jobs.justice.gov.uk/portal/13/images/logo--footer.svg" alt="Ministry of Justice Logo" loading="lazy" aria-hidden="true"/>
+    <p>Copyright © 2025</p>
+    <div style={{marginLeft:"50px"}}>
+      <h3>Privacy | Accessibility | Terms & Conditions | Contact us | Help Centre | Cookie settings</h3>
     </div>
+    </div>
+    </footer>
+  </>
   );
 };
 

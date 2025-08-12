@@ -6,6 +6,9 @@ export function reverseDate(dateString){
 }
 
 export function orderByDate(tasks, sortType = true) {
+    if(!Array.isArray(tasks)) {
+        return tasks
+    }
     const ordered = [...tasks].sort((a,b) => {
             return sortType
             ? Date.parse(reverseDate(a.due)) - Date.parse(reverseDate(b.due))
