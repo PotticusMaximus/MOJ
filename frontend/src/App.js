@@ -173,7 +173,7 @@ async function processTask(task) {
     <img src="https://jobs.justice.gov.uk/portal/13/images/logo--footer.svg" alt="Ministry of Justice Logo" loading="lazy" aria-hidden="true"/>
     <p>Copyright © 2025</p>
     <div style={{marginLeft:"50px"}}>
-      <h3>Privacy | Accessibility | Terms & Conditions | Contact us | Help Centre | Cookie settings</h3>
+      <h3>Privacy | Accessibility | Terms & Conditions | Contact us | Help Centre | Cookie settings </h3>
     </div>
     </div>
     </footer>

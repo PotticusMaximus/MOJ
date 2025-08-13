@@ -87,7 +87,7 @@ app.listen(port, () => {
 error handling: on item not found
 
 Tests / Bugs
-Invalid time value
+
 
 Search:
 By name

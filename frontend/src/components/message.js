@@ -41,7 +41,7 @@ export function MessageModal({message, relatedTask, isOpen, onClose, deleteTask}
       <>
       {information()}
       </>
-<div style={{marginLeft:"10px"}}>
+<div style={{marginLeft:"10px", marginBottom:"5px"}}>
     <button
   className="taskButton-delete"
   onClick={() => {

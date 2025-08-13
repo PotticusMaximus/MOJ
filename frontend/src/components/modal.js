@@ -2,6 +2,7 @@ import ReactModal from 'react-modal';
 import { useEffect, useState } from "react";
 import { ValidationBox } from './validationBox';
 import Datepicker from "react-datepicker";
+import { parse } from 'date-fns';
 import "react-datepicker/dist/react-datepicker.css";
 
 ReactModal.setAppElement("#root");
@@ -38,11 +39,19 @@ async function checkTitle(input){
     setTitle(task.title || "");
     setDesc(task.desc || "");
     setStatus(task.status || "");
-    setDue(task.due || "");
     setId(task.id || "");
-}
+    if(task.due) {
+        const dateObj = typeof task.due === "string"
+        ? parse(task.due, "dd-MM-yyyy", new Date())
+        : task.due;
+    setDue(dateObj);
+    } else {
+        setDue(null);
+    }
+    }
 }, [task, updateTask]);
 
+console.log(due);
 
     return <ReactModal
       isOpen={isOpen}
@@ -89,7 +98,7 @@ async function checkTitle(input){
     setStatus(e.target.value);
   }}></textarea>
     <p>Due date: </p>
-    <Datepicker selected={due} onChange={(date) => setDue(date)} />
+    <Datepicker dateFormat="dd/MM/yyyy" selected={due} onChange={(date) => {setDue(date)}} />
 </div>
 <div style={{marginLeft:"50px", marginTop:"20px"}}>
     <button disabled={validation}
