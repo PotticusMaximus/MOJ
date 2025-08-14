@@ -1,86 +1,99 @@
-const express = require('express');
-const cors = require('cors');
+const express = require("express");
+const cors = require("cors");
 const { TaskModel } = require("./src/models/taskModel");
-const { db } = require('./src/data/connection');
-const { dateSetter } = require('./src/utils');
+const { db } = require("./src/data/connection");
+const { dateSetter } = require("./src/utils");
 
 const app = express();
 const port = 3000;
-const path = require('path');
+const path = require("path");
 
 app.use(cors());
 app.use(express.json());
 
-app.get('/task', (req, res) => {
-    res.send('Tasks!');
-})
-
-app.post('/task/newTask', async (req, res) => {
-    try {
-        const newTask = await TaskModel.create({title: req.body.title, desc:req.body.desc, status:req.body.status, due: req.body.due})
-        res.status(200).send(`Successfully created new Task: ${newTask.id}`);
-    }
-    catch(e) {
-        console.error("Error creating task " + e);
-        res.send("Internal server error")
-    }
+app.get("/task", (req, res) => {
+  res.send("Tasks!");
 });
 
-app.get('/task/all', async (req, res) => {
-    try {
+app.post("/task/newTask", async (req, res) => {
+  try {
+    const newTask = await TaskModel.create({
+      title: req.body.title,
+      desc: req.body.desc,
+      status: req.body.status,
+      due: req.body.due,
+    });
+    res.status(200).send(`Successfully created new Task: ${newTask.id}`);
+  } catch (e) {
+    console.error("Error creating task " + e);
+    res.send("Internal server error");
+  }
+});
+
+app.get("/task/all", async (req, res) => {
+  try {
     const result = await TaskModel.findAll();
-    const setDates = result.map(task => ({
-        id:task.id,
-        title: task.title,
-        desc: task.desc,
-        status: task.status,
-        due: dateSetter(task.due)}));
-    res.send(JSON.stringify(setDates));
-    } catch {
-        console.error("No records found")
-        res.send("Internal server error")
-    }
+    const setDates = result.map((task) => ({
+      id: task.id,
+      title: task.title,
+      desc: task.desc,
+      status: task.status,
+      due: dateSetter(task.due),
+    }));
+    res.status(200).send(JSON.stringify(setDates));
+  } catch {
+    console.error("No records found");
+    res.send("Internal server error");
+  }
 });
 
-app.get('/task/:id', async (req, res) => {
-    try{
-        const result = await TaskModel.findOne({where: {id: req.params.id}});
+app.get("/task/:id", async (req, res) => {
+  try {
+    const result = await TaskModel.findAll({ where: { id: req.params.id } });
+    const setDates = result.map((task) => ({
+      id: task.id,
+      title: task.title,
+      desc: task.desc,
+      status: task.status,
+      due: dateSetter(task.due),
+    }));
+    if (result) {
+      res.status(200).send(JSON.stringify(setDates));
+    } else {
+      throw new Error("Not found");
+    }
+  } catch (e) {
+    console.error(e);
+    res.send("Internal server error");
+  }
+});
 
-        if(result) {res.status(200).send(result)}
-        else { throw new Error('Not found')};
-    }
-    catch(e) {
-        console.error(e)
-        res.send("Internal server error")
-    }
-})
+app.put("/task/:id", async (req, res) => {
+  try {
+    const findTask = await TaskModel.update(req.body, {
+      where: { id: req.params.id },
+    });
+    res.status(200).send("Status updated");
+  } catch (e) {
+    console.error(e);
+    res.send("Internal server error");
+  }
+});
 
-app.put('/task/:id',async (req, res) => {
-    try{
-        const findTask = await TaskModel.update(req.body,{where: {id: req.params.id}});
-        res.status(200).send("Status updated");
-    }
-    catch(e) {
-        console.error(e)
-        res.send("Internal server error")
-    }
-})
-
-app.delete('/task/:id',async (req, res) => {
-    try{
-        const findTask = await TaskModel.destroy({where: {id: req.params.id}});
-        res.status(200).send(`Task ID: ${req.params.id} deleted`);
-    }
-    catch(e) {
-        console.error(e)
-        res.send("Internal server error")
-    }
-})
+app.delete("/task/:id", async (req, res) => {
+  try {
+    const findTask = await TaskModel.destroy({ where: { id: req.params.id } });
+    res.status(200).send(`Task ID: ${req.params.id} deleted`);
+  } catch (e) {
+    console.error(e);
+    res.send("Internal server error");
+  }
+});
 
 app.listen(port, () => {
-    db.sync();
-    console.log('Listening on port ' + port);
-})
+  db.sync();
+  console.log("Listening on port " + port);
+});
 
 /* TODO
 
@@ -92,5 +105,7 @@ Tests / Bugs
 Search:
 By name
 
+Features:
+cross task off list
 
 */

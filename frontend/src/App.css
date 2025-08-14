@@ -1,5 +1,5 @@
 body {
-  font-family: 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-family: "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   color: #333;
   background-color: #f4f4f4;
   margin: 0;
@@ -8,25 +8,45 @@ body {
 }
 
 .titleBox {
-color:#1D609D;
-font-weight:bold;
+  color: #1d609d;
+  font-weight: bold;
 }
 
-.page{
-  margin-left:10%;
+.page {
+  margin-left: 10%;
   margin-right: 10%;
   margin-bottom: 5%;
 }
 
+.appHeader {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  flex-wrap: wrap;
+}
+
+.noteBox {
+  margin: 2%;
+  background-color: white;
+  text-align: left;
+  border: 1px solid #333;
+  padding: 2px;
+}
+
+.notesH3 {
+  margin-left: 20px;
+  font-weight: bold;
+}
+
 .header {
   padding: 10px;
-  background-color: #1D1D1B;
+  background-color: #1d1d1b;
   color: #fff;
 }
 
 .buttonBar {
   width: auto;
-  color: #1D1D1B;
+  color: #1d1d1b;
   display: flex;
   flex-wrap: wrap;
   gap: 5px;
@@ -61,20 +81,20 @@ font-weight:bold;
 
 .taskButton:hover {
   background-color: green;
-  color: white
+  color: white;
 }
 
 .taskButton:disabled {
   background-color: grey;
-  color: white
+  color: white;
 }
 
 .taskButton-delete:hover {
   background-color: red;
-  color: white
+  color: white;
 }
 
-.grid{
+.grid {
   width: 100%;
   padding-bottom: 20px;
   justify-self: center;
@@ -94,7 +114,7 @@ font-weight:bold;
 
 .rowHeader {
   align-items: stretch;
-  background-color: #1D1D1B;
+  background-color: #1d1d1b;
   grid-template-columns: 0.8fr 1fr 2.5fr 1fr 1fr 0.5fr 0.5fr;
   gap: 5px;
   display: grid;
@@ -109,7 +129,7 @@ font-weight:bold;
 
 .cellHeader {
   text-align: center;
-  background-color: #1D1D1B;
+  background-color: #1d1d1b;
   color: white;
   padding: 2px;
 }
@@ -121,12 +141,12 @@ font-weight:bold;
 
 .footerStyle {
   min-height: 10%;
-  border-top-width: .1rem;
+  border-top-width: 0.1rem;
   border-top-style: solid;
   border-top-color: lightslategray;
   margin: 0 auto;
   width: 100%;
-  background-color: #CED1DC;
+  background-color: #ced1dc;
   color: var(--color--font);
 }
 
@@ -146,7 +166,7 @@ font-weight:bold;
 
   .row {
     margin-top: 10px;
-    background-color:#CED1DC;
+    background-color: #ced1dc;
     padding: 2px;
     border: solid 2px lightslategray;
     grid-template-columns: 1fr;
@@ -169,5 +189,4 @@ font-weight:bold;
   .rowHeader {
     display: none;
   }
-
 }
