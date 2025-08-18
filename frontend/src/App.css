@@ -1,5 +1,5 @@
 body {
-  font-family: "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-family: "Gill Sans MT", "Trebuchet MS", sans-serif;
   color: #333;
   background-color: #f4f4f4;
   margin: 0;
@@ -26,7 +26,8 @@ body {
 }
 
 .noteBox {
-  margin: 2%;
+  margin-bottom: 2%;
+  margin-top: 2%;
   background-color: white;
   text-align: left;
   border: 1px solid #333;
@@ -56,15 +57,15 @@ body {
 .taskButton {
   background-color: #005ea5;
   color: white;
-  padding: 5px;
-  margin-right: 5px;
+  padding: 2px;
+  margin-right: 2px;
 }
 
 .taskButton-delete {
   background-color: darkred;
   color: white;
-  padding: 5px;
-  margin-right: 5px;
+  padding: 2px;
+  margin-right: 2px;
 }
 
 .taskButton-delete:disabled {
@@ -106,7 +107,7 @@ body {
 
 .row {
   align-items: stretch;
-  grid-template-columns: 0.8fr 1fr 2.5fr 1fr 1fr 0.5fr 0.5fr;
+  grid-template-columns: 0.5fr 1fr 3fr 2fr 1fr 0.5fr;
   gap: 5px;
   row-gap: 5px;
   display: grid;
@@ -115,7 +116,7 @@ body {
 .rowHeader {
   align-items: stretch;
   background-color: #1d1d1b;
-  grid-template-columns: 0.8fr 1fr 2.5fr 1fr 1fr 0.5fr 0.5fr;
+  grid-template-columns: 0.5fr 1fr 3fr 2fr 1fr 0.5fr auto;
   gap: 5px;
   display: grid;
 }
@@ -124,7 +125,6 @@ body {
   background-color: white;
   text-align: center;
   border: 1px solid #333;
-  padding: 2px;
 }
 
 .cellHeader {
@@ -137,6 +137,19 @@ body {
 .validation-text {
   color: red;
   font-weight: bold;
+}
+
+.iconG {
+  text-align: center;
+  font-size: xx-large;
+  margin-top: 10px;
+}
+
+.gridButton {
+  align-content: center;
+  display: "flex";
+  flex-direction: column;
+  flex-wrap: stretch;
 }
 
 .footerStyle {
@@ -164,6 +177,11 @@ body {
     grid-template-columns: 1fr;
   }
 
+  .mobileSplit {
+    min-width: 290px;
+    max-width: auto;
+  }
+
   .row {
     margin-top: 10px;
     background-color: #ced1dc;
@@ -188,5 +206,15 @@ body {
 
   .rowHeader {
     display: none;
+  }
+
+  .noteBox {
+    display: none;
+  }
+
+  .gridButton {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: stretch;
   }
 }

@@ -185,10 +185,12 @@ function App() {
     <>
       <div className="page">
         <div className="appHeader">
-          <div>
+          <div className="mobileSplit">
             <div className="titleBox">
               <h1>Task Manager</h1>
-              <h2>Tasks on page: {`${tasks.length}`}</h2>
+              <h2 style={{ color: "#333" }}>
+                Tasks on page: {`${tasks.length}`}
+              </h2>
             </div>
             <div className="buttonBar">
               <button
@@ -221,7 +223,8 @@ function App() {
               <input
                 placeholder="ID to search..."
                 style={{
-                  marginLeft: "20px",
+                  minWidth: "25%",
+                  marginLeft: "10px",
                   marginRight: "5px",
                   width: "25%",
                   maxWidth: "25%",
@@ -267,7 +270,7 @@ function App() {
             </h3>
             <h3 className="notesH3">
               <FaCheck style={{ color: "orange", marginRight: "10px" }} />
-              Tasks in the next week: {notes.twoWeeks}
+              Tasks due in the next 14 days: {notes.twoWeeks}
             </h3>
             <h3 className="notesH3">
               <FaCheckDouble
