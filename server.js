@@ -102,10 +102,7 @@ error handling: on item not found
 Tests / Bugs
 
 
-Search:
-By name
-
 Features:
-cross task off list
+Notes icons are buttons to filter by status
 
 */

@@ -70,8 +70,11 @@ export function TaskModal({
           justify: "center",
           padding: 0,
           border: "2px solid black",
-          width: "40%",
+          width: "80%",
           margin: "auto",
+          height: "50%",
+          maxHeight: "80vh",
+          overflowY: "auto",
         },
       }}
     >
@@ -95,8 +98,8 @@ export function TaskModal({
         <textarea
           style={{
             fontFamily: "inherit",
-            maxWidth: "80%",
-            maxHeight: "200px",
+            width: "80%",
+            height: "80%",
             boxSizing: "border-box",
             padding: "4px 8px",
             border: "1px solid #ccc",
@@ -111,8 +114,8 @@ export function TaskModal({
         <textarea
           style={{
             fontFamily: "inherit",
-            maxWidth: "80%",
-            maxHeight: "100px",
+            width: "80%",
+            height: "30%",
             boxSizing: "border-box",
             padding: "4px 8px",
             border: "1px solid #ccc",

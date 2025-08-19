@@ -1,3 +1,5 @@
+export const complete = "** Complete **";
+
 export function reverseDate(dateString) {
   if (!dateString || typeof dateString !== "string") {
     return;
@@ -29,7 +31,7 @@ export function determineTasks(tasks) {
 
   tasks.forEach((task) => {
     const diff = dateDifference(task.due);
-    if (checkDateType(task.due)) {
+    if (checkDateType(task.due) || task.status === complete) {
       return;
     }
     if (diff <= 0) {
@@ -46,4 +48,10 @@ export function determineTasks(tasks) {
     }
   });
   return taskCount;
+}
+
+export function orderTasks(tasks, visible) {
+  if (visible) {
+    return [...tasks].filter((t) => t.status !== complete);
+  } else return tasks;
 }

@@ -9,6 +9,8 @@ import {
   FaPlus,
   FaSortAmountDown,
   FaSortAmountUp,
+  FaEye,
+  FaEyeSlash,
 } from "react-icons/fa";
 import {
   FaArrowsRotate,
@@ -17,7 +19,7 @@ import {
   FaCheck,
   FaCheckDouble,
 } from "react-icons/fa6";
-import { determineTasks } from "./components/utils";
+import { determineTasks, orderTasks } from "./components/utils";
 
 function App() {
   const [tasks, setTasks] = useState([]);
@@ -29,6 +31,7 @@ function App() {
   const [type, setType] = useState("");
   const [sortDate, setSortDate] = useState(true);
   const [notes, setNotes] = useState({});
+  const [complete, setComplete] = useState(true);
 
   async function getTasks() {
     const id = searchInput;
@@ -42,7 +45,16 @@ function App() {
       : await fetch("http://localhost:3000/task/all").then((res) => res.json());
 
     setSearchInput("");
-    return setTasks(data);
+    setTasks(orderTasks(data, complete));
+    setComplete(!complete);
+  }
+
+  function getCompleteIcon() {
+    if (complete) {
+      return <FaEye />;
+    } else {
+      return <FaEyeSlash />;
+    }
   }
 
   async function deleteTask(id) {
@@ -246,6 +258,17 @@ function App() {
                 style={{ fontSize: "large", minWidth: "30px" }}
               >
                 <FaSearch />
+              </button>
+              <button
+                disabled={tasks.length === 1}
+                className="taskButton"
+                title={`Showing Complete Tasks: ${complete}`}
+                style={{ fontSize: "large", minWidth: "30px" }}
+                onClick={() => {
+                  getTasks();
+                }}
+              >
+                {getCompleteIcon()}
               </button>
             </div>
           </div>

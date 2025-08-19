@@ -20,12 +20,14 @@ body {
 
 .appHeader {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 2fr auto;
   gap: 2px;
-  flex-wrap: wrap;
+  flex-wrap: stretch;
 }
 
 .noteBox {
+  min-width: auto;
+  width: 400px;
   margin-bottom: 2%;
   margin-top: 2%;
   background-color: white;
@@ -95,6 +97,18 @@ body {
   color: white;
 }
 
+.taskButton-check {
+  background-color: green;
+  color: white;
+  padding: 2px;
+  margin-right: 2px;
+}
+
+.taskButton-check:hover {
+  background-color: seagreen;
+  color: white;
+}
+
 .grid {
   width: 100%;
   padding-bottom: 20px;
@@ -107,7 +121,7 @@ body {
 
 .row {
   align-items: stretch;
-  grid-template-columns: 0.5fr 1fr 3fr 2fr 1fr 0.5fr;
+  grid-template-columns: 0.5fr 1fr 3fr 2fr 1fr 0.5fr 1fr;
   gap: 5px;
   row-gap: 5px;
   display: grid;
@@ -116,7 +130,7 @@ body {
 .rowHeader {
   align-items: stretch;
   background-color: #1d1d1b;
-  grid-template-columns: 0.5fr 1fr 3fr 2fr 1fr 0.5fr auto;
+  grid-template-columns: 0.5fr 1fr 3fr 2fr 1fr 0.5fr 1fr;
   gap: 5px;
   display: grid;
 }
@@ -145,13 +159,6 @@ body {
   margin-top: 10px;
 }
 
-.gridButton {
-  align-content: center;
-  display: "flex";
-  flex-direction: column;
-  flex-wrap: stretch;
-}
-
 .footerStyle {
   min-height: 10%;
   border-top-width: 0.1rem;
@@ -168,6 +175,10 @@ body {
   flex-direction: row;
   gap: 5px;
   margin-left: 10%;
+}
+
+p.mobile-only {
+  display: none;
 }
 
 /* Mobile friendly styling */
@@ -208,13 +219,11 @@ body {
     display: none;
   }
 
-  .noteBox {
-    display: none;
+  p.mobile-only {
+    display: inline;
   }
 
-  .gridButton {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: stretch;
+  .noteBox {
+    display: none;
   }
 }
