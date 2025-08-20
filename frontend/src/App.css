@@ -7,6 +7,25 @@ body {
   line-height: 1.5;
 }
 
+button {
+  border: none;
+}
+
+.iconButton {
+  background-color: inherit;
+  margin: auto;
+  border-bottom: 1px solid #f4f4f4;
+}
+
+.iconButton :hover {
+  cursor: pointer;
+  border-bottom: 1px solid #1d609d;
+}
+
+.mobileSplit {
+  display: grid;
+}
+
 .titleBox {
   color: #1d609d;
   font-weight: bold;
@@ -26,25 +45,46 @@ body {
 }
 
 .noteBox {
+  align-self: center;
   min-width: auto;
   width: 400px;
   margin-bottom: 2%;
   margin-top: 2%;
-  background-color: white;
-  text-align: left;
-  border: 1px solid #333;
-  padding: 2px;
+  text-align: right;
 }
 
 .notesH3 {
+  margin: auto;
   margin-left: 20px;
   font-weight: bold;
 }
 
 .header {
   padding: 10px;
+  width: 100%;
   background-color: #1d1d1b;
   color: #fff;
+}
+
+.modalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  width: auto;
+  margin: auto;
+  color: #1d1d1b;
+  border-bottom: 1.5px solid lightgray;
+}
+
+.modalTextArea {
+  resize: none;
+  font-family: inherit;
+  width: 40vw;
+  height: 10vh;
+  box-sizing: border-box;
+  padding: 4px 8px;
+  border: 1px solid #ccc;
 }
 
 .buttonBar {
@@ -56,40 +96,47 @@ body {
   margin-bottom: 20px;
 }
 
+.windowClose {
+  color: #005ea5;
+  font-size: x-large;
+  height: 50px;
+  width: 25%;
+  background-color: inherit;
+}
+
+.windowClose :hover {
+  color: #66d0f3;
+}
+
 .taskButton {
   background-color: #005ea5;
   color: white;
-  padding: 2px;
+  padding: 5px;
   margin-right: 2px;
+  font-size: x-large;
+  height: auto;
+  width: auto;
 }
 
 .taskButton-delete {
   background-color: darkred;
   color: white;
-  padding: 2px;
+  font-size: x-large;
+  padding: 5px;
   margin-right: 2px;
 }
 
 .taskButton-delete:disabled {
-  background-color: grey;
-  color: white;
-  padding: 5px;
-  margin-right: 5px;
-}
-
-.taskButton-delete:disabled:hover {
-  background-color: lightgray;
-  cursor: not-allowed;
+  display: none;
 }
 
 .taskButton:hover {
-  background-color: green;
-  color: white;
+  background-color: #66d0f3;
+  color: #005ea5;
 }
 
 .taskButton:disabled {
-  background-color: grey;
-  color: white;
+  display: none;
 }
 
 .taskButton-delete:hover {
@@ -105,8 +152,8 @@ body {
 }
 
 .taskButton-check:hover {
-  background-color: seagreen;
-  color: white;
+  background-color: palegreen;
+  color: green;
 }
 
 .grid {
@@ -122,30 +169,32 @@ body {
 .row {
   align-items: stretch;
   grid-template-columns: 0.5fr 1fr 3fr 2fr 1fr 0.5fr 1fr;
-  gap: 5px;
+  gap: 10px;
   row-gap: 5px;
+  margin-bottom: 15px;
   display: grid;
 }
 
 .rowHeader {
   align-items: stretch;
-  background-color: #1d1d1b;
   grid-template-columns: 0.5fr 1fr 3fr 2fr 1fr 0.5fr 1fr;
   gap: 5px;
+  margin-bottom: 15px;
   display: grid;
 }
 
 .cell {
-  background-color: white;
   text-align: center;
-  border: 1px solid #333;
+  background-color: white;
 }
 
 .cellHeader {
+  justify-content: center;
   text-align: center;
-  background-color: #1d1d1b;
+  font-size: x-large;
+  background-color: #005ea5;
   color: white;
-  padding: 2px;
+  height: 80px;
 }
 
 .validation-text {
@@ -193,19 +242,21 @@ p.mobile-only {
     max-width: auto;
   }
 
+  .buttonBar {
+    display: flex;
+    flex-direction: row;
+  }
+
   .row {
     margin-top: 10px;
-    background-color: #ced1dc;
     padding: 2px;
-    border: solid 2px lightslategray;
     grid-template-columns: 1fr;
   }
 
   .cell {
     display: flex;
     flex-direction: column;
-    border: 1px solid #333;
-    padding: 8px;
+    padding: 2px;
   }
 
   .cell[data-label]::before {

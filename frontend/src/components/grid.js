@@ -63,16 +63,6 @@ export function Grid({ id, title, desc, status, due, modal, msgModal }) {
   let icon = null;
   let iconLabel = "";
 
-  function setOverdue(date) {
-    if (status === complete) {
-      return "green 2px solid";
-    } else if (dateDifference(date) <= -1) {
-      return "red 2px solid";
-    } else {
-      return "1px solid #333";
-    }
-  }
-
   function calculateDate(dueDate) {
     if (checkDateType(dueDate)) {
       return "white";
@@ -82,29 +72,24 @@ export function Grid({ id, title, desc, status, due, modal, msgModal }) {
     if (status === complete) {
       icon = icons.trophy;
       iconLabel = iconMobileLabel.complete;
-      return "mediumseagreen";
+      return "green";
     } else {
       if (diff <= -1) {
         icon = icons.triangle;
         iconLabel = iconMobileLabel.overdue;
-        return "red";
       }
       if (diff >= 0 && diff < 7) {
         icon = icons.exclamation;
         iconLabel = iconMobileLabel.due;
-        return "red";
       }
       if (diff >= 7 && diff < 14) {
         icon = icons.check;
         iconLabel = iconMobileLabel.twoWeeks;
-        return "orange";
       }
       if (diff >= 14) {
         icon = icons.checkDouble;
         iconLabel = iconMobileLabel.overTwo;
-        return "mediumseagreen";
       }
-      return "white";
     }
   }
 
@@ -116,35 +101,22 @@ export function Grid({ id, title, desc, status, due, modal, msgModal }) {
 
   return (
     <div className="row" style={{ textDecoration: getComplete() }}>
-      <div className="cell" data-label="ID" style={{ border: setOverdue(due) }}>
+      <div className="cell" data-label="ID">
         <p>{id} </p>
       </div>
-      <div
-        className="cell"
-        data-label="Title"
-        style={{ border: setOverdue(due) }}
-      >
+      <div className="cell" data-label="Title">
         <p>{title} </p>
       </div>
-      <div
-        className="cell"
-        data-label="Description"
-        style={{ border: setOverdue(due) }}
-      >
+      <div className="cell" data-label="Description">
         <p>{desc} </p>
       </div>
-      <div
-        className="cell"
-        data-label="Status"
-        style={{ border: setOverdue(due) }}
-      >
+      <div className="cell" data-label="Status">
         <p>{status} </p>
       </div>
       <div
         style={{
           backgroundColor: calculateDate(due),
           fontWeight: "bold",
-          border: setOverdue(due),
         }}
         className="cell"
         data-label="Due date"
@@ -154,7 +126,6 @@ export function Grid({ id, title, desc, status, due, modal, msgModal }) {
       <div
         className="cell"
         style={{
-          border: setOverdue(due),
           flexDirection: "row",
           gap: "10px",
           justifyContent: "center",
@@ -196,11 +167,11 @@ export function Grid({ id, title, desc, status, due, modal, msgModal }) {
           <FaEdit />
         </button>
         <button
-          className="taskButton-delete"
+          className="taskButton"
           style={{ fontSize: "x-large", height: "100%", width: "30%" }}
           title="Delete task"
           onClick={() =>
-            msgModal(`Are you sure you want to delete task ${id}?`, {
+            msgModal(`Delete task ${id}?`, {
               id,
               title,
               desc,

@@ -101,8 +101,4 @@ error handling: on item not found
 
 Tests / Bugs
 
-
-Features:
-Notes icons are buttons to filter by status
-
 */

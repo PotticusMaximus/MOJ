@@ -4,6 +4,7 @@ import { ValidationBox } from "./validationBox";
 import Datepicker from "react-datepicker";
 import { parse } from "date-fns";
 import "react-datepicker/dist/react-datepicker.css";
+import { FaX } from "react-icons/fa6";
 
 ReactModal.setAppElement("#root");
 
@@ -23,6 +24,25 @@ export function TaskModal({
   const [task, setTask] = useState({});
   const [validation, setValidation] = useState(false);
   const [message, setMessage] = useState("");
+
+  const modalStyles = {
+    overlay: {
+      backgroundColor: "rgba(0, 0, 0, 0.4)",
+      backdropFilter: "blur(2px)",
+      WebkitBackdropFilter: "blur(2px)",
+    },
+    content: {
+      border: "none",
+      justifyContent: "center",
+      padding: 0,
+      maxWidth: "80vw",
+      width: "70%",
+      margin: "auto",
+      height: "70%",
+      maxHeight: "80vh",
+      overflowY: "auto",
+    },
+  };
 
   const getTask = () => {
     const newTask = { id, title, desc, status, due };
@@ -65,97 +85,83 @@ export function TaskModal({
       isOpen={isOpen}
       onRequestClose={onClose}
       contentLabel="Task Modal"
-      style={{
-        content: {
-          justify: "center",
-          padding: 0,
-          border: "2px solid black",
-          width: "80%",
-          margin: "auto",
-          height: "50%",
-          maxHeight: "80vh",
-          overflowY: "auto",
-        },
-      }}
+      style={modalStyles}
     >
-      <div className="header">
-        <h2>
-          {taskType} task {id}
-        </h2>
-      </div>
-      <div style={{ marginLeft: "50px" }}>
-        <p>Task Title: </p>
-        <input
-          placeholder="Type task title..."
-          value={title}
-          onChange={(e) => {
-            if (checkTitle(e.target.value)) {
-              setTitle(e.target.value);
-            }
-          }}
-        ></input>
-        <p>Description: </p>
-        <textarea
-          style={{
-            fontFamily: "inherit",
-            width: "80%",
-            height: "80%",
-            boxSizing: "border-box",
-            padding: "4px 8px",
-            border: "1px solid #ccc",
-          }}
-          placeholder="Task details..."
-          value={desc}
-          onChange={(e) => {
-            setDesc(e.target.value);
-          }}
-        ></textarea>
-        <p>Status: </p>
-        <textarea
-          style={{
-            fontFamily: "inherit",
-            width: "80%",
-            height: "30%",
-            boxSizing: "border-box",
-            padding: "4px 8px",
-            border: "1px solid #ccc",
-          }}
-          placeholder="current task status..."
-          value={status}
-          onChange={(e) => {
-            setStatus(e.target.value);
-          }}
-        ></textarea>
-        <p>Due date: </p>
-        <Datepicker
-          dateFormat="dd/MM/yyyy"
-          selected={due}
-          onChange={(date) => {
-            setDue(date);
-          }}
+      <div
+        style={{
+          padding: "30px",
+        }}
+      >
+        <div className="modalHeader">
+          <h2>
+            {taskType} task {id}
+          </h2>
+          <button
+            className="windowClose"
+            onClick={onClose}
+            style={{ fontSize: "x-large", height: "50px", width: "25%" }}
+          >
+            <FaX />
+          </button>
+        </div>
+        <div>
+          <p>Task Title: </p>
+          <input
+            placeholder="Type task title..."
+            value={title}
+            onChange={(e) => {
+              if (checkTitle(e.target.value)) {
+                setTitle(e.target.value);
+              }
+            }}
+          ></input>
+          <p>Description: </p>
+          <textarea
+            className="modalTextArea"
+            placeholder="Task details..."
+            value={desc}
+            onChange={(e) => {
+              setDesc(e.target.value);
+            }}
+          ></textarea>
+          <p>Status: </p>
+          <textarea
+            style={{ height: "5vh" }}
+            className="modalTextArea"
+            placeholder="current task status..."
+            value={status}
+            onChange={(e) => {
+              setStatus(e.target.value);
+            }}
+          ></textarea>
+          <p>Due date: </p>
+          <Datepicker
+            dateFormat="dd/MM/yyyy"
+            selected={due}
+            onChange={(date) => {
+              setDue(date);
+            }}
+          />
+        </div>
+        <div style={{ marginTop: "20px", marginBottom: "30px" }}>
+          <button
+            disabled={validation}
+            className="taskButton"
+            onClick={() => {
+              if (!validation) {
+                getTask();
+              }
+            }}
+          >
+            Proceed
+          </button>
+        </div>
+        <ValidationBox
+          style={{ marginLeft: "50px" }}
+          message={`** ${message}`}
+          visible={validation}
         />
       </div>
-      <div style={{ marginLeft: "50px", marginTop: "20px" }}>
-        <button
-          disabled={validation}
-          className="taskButton"
-          onClick={() => {
-            if (!validation) {
-              getTask();
-            }
-          }}
-        >
-          Proceed
-        </button>
-        <button className="taskButton-delete" onClick={onClose}>
-          Cancel
-        </button>
-      </div>
-      <ValidationBox
-        style={{ marginLeft: "50px" }}
-        message={`** ${message}`}
-        visible={validation}
-      />
     </ReactModal>
   );
 }

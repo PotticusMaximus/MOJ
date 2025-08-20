@@ -1,4 +1,5 @@
 import ReactModal from "react-modal";
+import { FaX } from "react-icons/fa6";
 
 ReactModal.setAppElement("#root");
 
@@ -13,11 +14,14 @@ export function MessageModal({
     if (relatedTask) {
       return (
         <div style={{ marginLeft: "10px" }}>
-          <p>ID: {relatedTask.id}</p>
-          <p>Task Title: {relatedTask.title}</p>
-          <p>Description: {relatedTask.desc} </p>
-          <p>Status: {relatedTask.status}</p>
-          <p>Due date: {relatedTask.due} </p>
+          <h3>Title:</h3>
+          <p>{relatedTask.title}</p>
+          <h3>Description: </h3>
+          <p>{relatedTask.desc} </p>
+          <h3>Status: </h3>
+          <p>{relatedTask.status}</p>
+          <h3>Due date: </h3>
+          <p>{relatedTask.due} </p>
         </div>
       );
     } else {
@@ -29,27 +33,41 @@ export function MessageModal({
     }
   };
 
+  const modalStyles = {
+    overlay: {
+      backgroundColor: "rgba(0, 0, 0, 0.4)",
+      backdropFilter: "blur(2px)",
+      WebkitBackdropFilter: "blur(2px)",
+    },
+    content: {
+      border: "none",
+      justifyContent: "center",
+      padding: 0,
+      maxWidth: "80vw",
+      width: "70%",
+      margin: "auto",
+      height: "70%",
+      maxHeight: "80vh",
+      overflowY: "auto",
+    },
+  };
+
   return (
     <ReactModal
       isOpen={isOpen}
       onRequestClose={onClose}
       contentLabel="Task Modal"
-      style={{
-        content: {
-          justify: "center",
-          padding: 0,
-          border: "2px solid black",
-          width: "30%",
-          height: "40%",
-          margin: "auto",
-        },
-      }}
+      style={modalStyles}
     >
-      <div className="header">
+      <div className="modalHeader">
         <h2>{message}</h2>
+        <button className="windowClose" onClick={onClose} style={{}}>
+          <FaX />
+        </button>
       </div>
-      <>{information()}</>
-      <div style={{ marginLeft: "10px", marginBottom: "5px" }}>
+
+      <div>
+        <>{information()}</>
         <button
           className="taskButton-delete"
           onClick={() => {
@@ -58,9 +76,6 @@ export function MessageModal({
           disabled={!relatedTask}
         >
           Delete
-        </button>
-        <button className="taskButton" onClick={onClose}>
-          Cancel
         </button>
       </div>
     </ReactModal>

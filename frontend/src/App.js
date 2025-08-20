@@ -11,6 +11,7 @@ import {
   FaSortAmountUp,
   FaEye,
   FaEyeSlash,
+  FaCalendar,
 } from "react-icons/fa";
 import {
   FaArrowsRotate,
@@ -19,7 +20,11 @@ import {
   FaCheck,
   FaCheckDouble,
 } from "react-icons/fa6";
-import { determineTasks, orderTasks } from "./components/utils";
+import {
+  determineTasks,
+  removeCompleteTasks,
+  orderByOverdue,
+} from "./components/utils";
 
 function App() {
   const [tasks, setTasks] = useState([]);
@@ -32,11 +37,14 @@ function App() {
   const [sortDate, setSortDate] = useState(true);
   const [notes, setNotes] = useState({});
   const [complete, setComplete] = useState(true);
+  const [overdueFilter, setOverdueFilter] = useState(false);
 
   async function getTasks() {
     const id = searchInput;
     if (!checkForId(id) && id) {
-      return openMsgModal(`ID: ${id} Not found.`, null);
+      openMsgModal(`ID: ${id} Not found.`, null);
+      setSearchInput("");
+      return;
     }
     let data = id
       ? await fetch(`http://localhost:3000/task/${id}`).then((res) =>
@@ -45,8 +53,9 @@ function App() {
       : await fetch("http://localhost:3000/task/all").then((res) => res.json());
 
     setSearchInput("");
-    setTasks(orderTasks(data, complete));
+    setTasks(removeCompleteTasks(data, complete));
     setComplete(!complete);
+    setOverdueFilter(false);
   }
 
   function getCompleteIcon() {
@@ -199,7 +208,17 @@ function App() {
         <div className="appHeader">
           <div className="mobileSplit">
             <div className="titleBox">
-              <h1>Task Manager</h1>
+              <h1
+                style={{
+                  color: "white",
+                  backgroundColor: "#005ea5",
+                  maxWidth: "320px",
+                  textAlign: "center",
+                  fontSize: "xx-large",
+                }}
+              >
+                Task Manager
+              </h1>
               <h2 style={{ color: "#333" }}>
                 Tasks on page: {`${tasks.length}`}
               </h2>
@@ -208,7 +227,6 @@ function App() {
               <button
                 className="taskButton"
                 title="Create new Task"
-                style={{ fontSize: "large", minWidth: "30px" }}
                 onClick={() => openModal("Create", {})}
               >
                 <FaPlus />
@@ -217,7 +235,6 @@ function App() {
                 className="taskButton"
                 title="Fetch all tasks"
                 onClick={getTasks}
-                style={{ fontSize: "large", minWidth: "30px" }}
               >
                 {" "}
                 <FaArrowsRotate />
@@ -230,7 +247,8 @@ function App() {
                   setSortDate(!sortDate);
                 }}
               >
-                Due {sortDate ? <FaSortAmountDown /> : <FaSortAmountUp />}
+                <FaCalendar style={{ marginRight: "5px" }} />
+                {sortDate ? <FaSortAmountDown /> : <FaSortAmountUp />}
               </button>
               <input
                 placeholder="ID to search..."
@@ -255,7 +273,6 @@ function App() {
                 className="taskButton"
                 title="Search for task ID"
                 onClick={getTasks}
-                style={{ fontSize: "large", minWidth: "30px" }}
               >
                 <FaSearch />
               </button>
@@ -263,7 +280,6 @@ function App() {
                 disabled={tasks.length === 1}
                 className="taskButton"
                 title={`Showing Complete Tasks: ${complete}`}
-                style={{ fontSize: "large", minWidth: "30px" }}
                 onClick={() => {
                   getTasks();
                 }}
@@ -273,37 +289,73 @@ function App() {
             </div>
           </div>
           <div className="noteBox">
-            <h3 className="notesH3">
-              <FaTriangleExclamation
-                style={{
-                  color: "red",
-                  marginRight: "10px",
-                }}
-              />
-              Overdue Tasks: {notes.overdue}
-            </h3>
-            <h3 className="notesH3">
-              <FaExclamation
-                style={{
-                  color: "red",
-                  marginRight: "10px",
-                }}
-              />
-              Tasks due this week: {notes.thisWeek}
-            </h3>
-            <h3 className="notesH3">
-              <FaCheck style={{ color: "orange", marginRight: "10px" }} />
-              Tasks due in the next 14 days: {notes.twoWeeks}
-            </h3>
-            <h3 className="notesH3">
-              <FaCheckDouble
-                style={{
-                  color: "green",
-                  marginRight: "10px",
-                }}
-              />
-              Tasks due in more than 2 weeks: {notes.more}
-            </h3>
+            <button
+              disabled={overdueFilter}
+              className="iconButton"
+              onClick={() => {
+                setTasks(orderByOverdue(tasks, "overdue"));
+                setOverdueFilter(true);
+              }}
+            >
+              <h3 className="notesH3">
+                <FaTriangleExclamation
+                  style={{
+                    color: "red",
+                    marginRight: "10px",
+                  }}
+                />
+                Overdue Tasks: {notes.overdue}
+              </h3>
+            </button>
+            <button
+              disabled={overdueFilter}
+              className="iconButton"
+              onClick={() => {
+                setTasks(orderByOverdue(tasks, "week"));
+                setOverdueFilter(true);
+              }}
+            >
+              <h3 className="notesH3">
+                <FaExclamation
+                  style={{
+                    color: "red",
+                    marginRight: "10px",
+                  }}
+                />
+                Tasks due this week: {notes.thisWeek}
+              </h3>
+            </button>
+            <button
+              disabled={overdueFilter}
+              className="iconButton"
+              onClick={() => {
+                setTasks(orderByOverdue(tasks, "twoWeek"));
+                setOverdueFilter(true);
+              }}
+            >
+              <h3 className="notesH3">
+                <FaCheck style={{ color: "orange", marginRight: "10px" }} />
+                Tasks due in the next 14 days: {notes.twoWeeks}
+              </h3>
+            </button>
+            <button
+              disabled={overdueFilter}
+              className="iconButton"
+              onClick={() => {
+                setTasks(orderByOverdue(tasks, "overTwo"));
+                setOverdueFilter(true);
+              }}
+            >
+              <h3 className="notesH3">
+                <FaCheckDouble
+                  style={{
+                    color: "green",
+                    marginRight: "10px",
+                  }}
+                />
+                Tasks due in more than 2 weeks: {notes.more}
+              </h3>
+            </button>
           </div>
         </div>
         <div className="grid">

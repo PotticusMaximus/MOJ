@@ -1,5 +1,12 @@
 export const complete = "** Complete **";
 
+let store = {
+  overdue: [],
+  week: [],
+  twoWeek: [],
+  overTwo: [],
+};
+
 export function reverseDate(dateString) {
   if (!dateString || typeof dateString !== "string") {
     return;
@@ -35,23 +42,38 @@ export function determineTasks(tasks) {
       return;
     }
     if (diff <= 0) {
+      store.overdue.push(task);
       taskCount.overdue++;
     }
     if (diff >= 1 && diff <= 7) {
+      store.week.push(task);
       taskCount.thisWeek++;
     }
     if (diff > 7 && diff <= 14) {
+      store.twoWeek.push(task);
       taskCount.twoWeeks++;
     }
     if (diff > 14) {
+      store.overTwo.push(task);
       taskCount.more++;
     }
   });
   return taskCount;
 }
 
-export function orderTasks(tasks, visible) {
+export function removeCompleteTasks(tasks, visible) {
   if (visible) {
     return [...tasks].filter((t) => t.status !== complete);
   } else return tasks;
+}
+
+export function orderByOverdue(tasks, type) {
+  store = {
+    overdue: [],
+    week: [],
+    twoWeek: [],
+    overTwo: [],
+  };
+  determineTasks(tasks);
+  return store[type];
 }
