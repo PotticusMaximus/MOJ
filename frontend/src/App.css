@@ -1,7 +1,7 @@
 body {
   font-family: "Gill Sans MT", "Trebuchet MS", sans-serif;
   color: #333;
-  background-color: #f4f4f4;
+  background-color: white;
   margin: 0;
   padding: 0;
   line-height: 1.5;
@@ -13,13 +13,13 @@ button {
 
 .iconButton {
   background-color: inherit;
-  margin: auto;
-  border-bottom: 1px solid #f4f4f4;
+  color: #f4f4f4;
+  text-align: end;
 }
 
 .iconButton :hover {
   cursor: pointer;
-  border-bottom: 1px solid #1d609d;
+  background-color: #1d609d;
 }
 
 .mobileSplit {
@@ -38,29 +38,45 @@ button {
 }
 
 .appHeader {
+  position: relative;
   display: grid;
+  color: white;
   grid-template-columns: 2fr auto;
   gap: 2px;
   flex-wrap: stretch;
+  z-index: 1;
+}
+
+.appHeader::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url("../public/office.jpeg") center center;
+  background-size: 100%;
+  filter: blur(1px);
+  opacity: 0.65;
+  z-index: -1;
 }
 
 .noteBox {
-  align-self: center;
-  min-width: auto;
-  width: 400px;
+  display: flex;
+  flex-direction: column;
+  width: auto;
+  margin-left: 10%;
   margin-bottom: 2%;
   margin-top: 2%;
-  text-align: right;
 }
 
 .notesH3 {
   margin: auto;
-  margin-left: 20px;
   font-weight: bold;
 }
 
 .header {
-  padding: 10px;
+  display: flex;
+  position: sticky;
+  top: 0;
+  z-index: 999;
   width: 100%;
   background-color: #1d1d1b;
   color: #fff;
@@ -94,6 +110,7 @@ button {
   flex-wrap: wrap;
   gap: 5px;
   margin-bottom: 20px;
+  margin-left: 10px;
 }
 
 .windowClose {
@@ -172,10 +189,12 @@ button {
   gap: 10px;
   row-gap: 5px;
   margin-bottom: 15px;
+  background-color: #f4f4f4;
   display: grid;
 }
 
 .rowHeader {
+  background-color: #005ea5;
   align-items: stretch;
   grid-template-columns: 0.5fr 1fr 3fr 2fr 1fr 0.5fr 1fr;
   gap: 5px;
@@ -185,7 +204,6 @@ button {
 
 .cell {
   text-align: center;
-  background-color: white;
 }
 
 .cellHeader {
@@ -193,7 +211,7 @@ button {
   text-align: center;
   font-size: x-large;
   background-color: #005ea5;
-  color: white;
+  color: #f4f4f4;
   height: 80px;
 }
 

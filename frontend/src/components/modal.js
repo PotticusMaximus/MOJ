@@ -5,6 +5,7 @@ import Datepicker from "react-datepicker";
 import { parse } from "date-fns";
 import "react-datepicker/dist/react-datepicker.css";
 import { FaX } from "react-icons/fa6";
+import { complete } from "./utils";
 
 ReactModal.setAppElement("#root");
 
@@ -30,6 +31,7 @@ export function TaskModal({
       backgroundColor: "rgba(0, 0, 0, 0.4)",
       backdropFilter: "blur(2px)",
       WebkitBackdropFilter: "blur(2px)",
+      zIndex: "10000",
     },
     content: {
       border: "none",
@@ -126,6 +128,7 @@ export function TaskModal({
           ></textarea>
           <p>Status: </p>
           <textarea
+            disabled={status === complete}
             style={{ height: "5vh" }}
             className="modalTextArea"
             placeholder="current task status..."

@@ -204,22 +204,103 @@ function App() {
 
   return (
     <>
+      <header class="header">
+        <div style={{ marginLeft: "10%", width: "50%" }}>
+          <img src="moj-logo.svg" alt="logo" />
+          <h1
+            style={{
+              color: "white",
+              maxWidth: "320px",
+              textAlign: "left",
+              fontSize: "x-large",
+            }}
+          >
+            Task Manager
+          </h1>
+        </div>
+        <div className="noteBox">
+          <button
+            disabled={overdueFilter}
+            className="iconButton"
+            onClick={() => {
+              setTasks(orderByOverdue(tasks, "overdue"));
+              setOverdueFilter(true);
+            }}
+          >
+            <h3 className="notesH3">
+              <FaTriangleExclamation
+                style={{
+                  color: "red",
+                  marginRight: "10px",
+                }}
+              />
+              Overdue Tasks: {notes.overdue}
+            </h3>
+          </button>
+          <button
+            disabled={overdueFilter}
+            className="iconButton"
+            onClick={() => {
+              setTasks(orderByOverdue(tasks, "week"));
+              setOverdueFilter(true);
+            }}
+          >
+            <h3 className="notesH3">
+              <FaExclamation
+                style={{
+                  color: "red",
+                  marginRight: "10px",
+                }}
+              />
+              Tasks due this week: {notes.thisWeek}
+            </h3>
+          </button>
+          <button
+            disabled={overdueFilter}
+            className="iconButton"
+            onClick={() => {
+              setTasks(orderByOverdue(tasks, "twoWeek"));
+              setOverdueFilter(true);
+            }}
+          >
+            <h3 className="notesH3">
+              <FaCheck style={{ color: "orange", marginRight: "10px" }} />
+              Tasks due in the next 14 days: {notes.twoWeeks}
+            </h3>
+          </button>
+          <button
+            disabled={overdueFilter}
+            className="iconButton"
+            onClick={() => {
+              setTasks(orderByOverdue(tasks, "overTwo"));
+              setOverdueFilter(true);
+            }}
+          >
+            <h3 className="notesH3">
+              <FaCheckDouble
+                style={{
+                  color: "green",
+                  marginRight: "10px",
+                }}
+              />
+              Tasks due in more than 2 weeks: {notes.more}
+            </h3>
+          </button>
+        </div>
+      </header>
       <div className="page">
         <div className="appHeader">
           <div className="mobileSplit">
             <div className="titleBox">
-              <h1
+              <h2
                 style={{
                   color: "white",
-                  backgroundColor: "#005ea5",
-                  maxWidth: "320px",
-                  textAlign: "center",
-                  fontSize: "xx-large",
+                  backgroundColor: " #1d609d",
+                  padding: "2px",
+                  width: "max-content",
+                  marginLeft: "10px",
                 }}
               >
-                Task Manager
-              </h1>
-              <h2 style={{ color: "#333" }}>
                 Tasks on page: {`${tasks.length}`}
               </h2>
             </div>
@@ -287,75 +368,6 @@ function App() {
                 {getCompleteIcon()}
               </button>
             </div>
-          </div>
-          <div className="noteBox">
-            <button
-              disabled={overdueFilter}
-              className="iconButton"
-              onClick={() => {
-                setTasks(orderByOverdue(tasks, "overdue"));
-                setOverdueFilter(true);
-              }}
-            >
-              <h3 className="notesH3">
-                <FaTriangleExclamation
-                  style={{
-                    color: "red",
-                    marginRight: "10px",
-                  }}
-                />
-                Overdue Tasks: {notes.overdue}
-              </h3>
-            </button>
-            <button
-              disabled={overdueFilter}
-              className="iconButton"
-              onClick={() => {
-                setTasks(orderByOverdue(tasks, "week"));
-                setOverdueFilter(true);
-              }}
-            >
-              <h3 className="notesH3">
-                <FaExclamation
-                  style={{
-                    color: "red",
-                    marginRight: "10px",
-                  }}
-                />
-                Tasks due this week: {notes.thisWeek}
-              </h3>
-            </button>
-            <button
-              disabled={overdueFilter}
-              className="iconButton"
-              onClick={() => {
-                setTasks(orderByOverdue(tasks, "twoWeek"));
-                setOverdueFilter(true);
-              }}
-            >
-              <h3 className="notesH3">
-                <FaCheck style={{ color: "orange", marginRight: "10px" }} />
-                Tasks due in the next 14 days: {notes.twoWeeks}
-              </h3>
-            </button>
-            <button
-              disabled={overdueFilter}
-              className="iconButton"
-              onClick={() => {
-                setTasks(orderByOverdue(tasks, "overTwo"));
-                setOverdueFilter(true);
-              }}
-            >
-              <h3 className="notesH3">
-                <FaCheckDouble
-                  style={{
-                    color: "green",
-                    marginRight: "10px",
-                  }}
-                />
-                Tasks due in more than 2 weeks: {notes.more}
-              </h3>
-            </button>
           </div>
         </div>
         <div className="grid">

@@ -38,6 +38,7 @@ export function MessageModal({
       backgroundColor: "rgba(0, 0, 0, 0.4)",
       backdropFilter: "blur(2px)",
       WebkitBackdropFilter: "blur(2px)",
+      zIndex: "10000",
     },
     content: {
       border: "none",
