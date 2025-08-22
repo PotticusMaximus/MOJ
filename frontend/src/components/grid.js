@@ -101,51 +101,46 @@ export function Grid({ id, title, desc, status, due, modal, msgModal }) {
 
   return (
     <div className="row" style={{ textDecoration: getComplete() }}>
-      <div className="cell" data-label="ID">
-        <p>{id} </p>
+      <div>
+        <h3 style={{ color: "#005ea5" }}>
+          {id} - {title}{" "}
+        </h3>
       </div>
-      <div className="cell" data-label="Title">
-        <p>{title} </p>
+      <div className="cell">
+        <p style={{ fontWeight: "bold" }}>Description:</p>
+        <p>{desc}</p>
       </div>
-      <div className="cell" data-label="Description">
-        <p>{desc} </p>
+      <div className="cell">
+        <p style={{ fontWeight: "bold" }}>Status: </p>
+        <p>{status}</p>
       </div>
-      <div className="cell" data-label="Status">
-        <p>{status} </p>
-      </div>
+
       <div
+        className="cell"
         style={{
           backgroundColor: calculateDate(due),
-          fontWeight: "bold",
         }}
-        className="cell"
         data-label="Due date"
       >
+        <p style={{ fontWeight: "bold" }}>Due by:</p>
         <p>{due}</p>
       </div>
       <div
         className="cell"
         style={{
-          flexDirection: "row",
-          gap: "10px",
-          justifyContent: "center",
+          marginBottom: "10px",
+          justifyContent: "right",
+          alignItems: "center",
         }}
       >
         {icon}
-        <p className="mobile-only">{iconLabel}</p>
+        <p>{iconLabel}</p>
       </div>
-      <div
-        className="cell"
-        style={{
-          border: "none",
-          flexDirection: "row",
-          justifyContent: "center",
-        }}
-      >
+      <div className="gridButtonBar">
         <button
           className="taskButton-check"
           title="Mark as complete"
-          style={{ fontSize: "x-large", height: "100%", width: "30%" }}
+          style={{ fontSize: "large", height: "100%", marginRight: "5px" }}
           onClick={() =>
             modal("Complete", {
               id,
@@ -156,19 +151,19 @@ export function Grid({ id, title, desc, status, due, modal, msgModal }) {
             })
           }
         >
-          <FaCheck />
+          <FaCheck /> Complete
         </button>
         <button
           className="taskButton"
           title="Edit task"
-          style={{ fontSize: "x-large", height: "100%", width: "30%" }}
+          style={{ fontSize: "large", height: "100%", marginRight: "5px" }}
           onClick={() => modal("Update", { id, title, desc, status, due })}
         >
-          <FaEdit />
+          <FaEdit /> Edit
         </button>
         <button
-          className="taskButton"
-          style={{ fontSize: "x-large", height: "100%", width: "30%" }}
+          className="taskButton-delete"
+          style={{ fontSize: "large", height: "100%", marginRight: "5px" }}
           title="Delete task"
           onClick={() =>
             msgModal(`Delete task ${id}?`, {
@@ -180,7 +175,7 @@ export function Grid({ id, title, desc, status, due, modal, msgModal }) {
             })
           }
         >
-          <FaTrash />
+          <FaTrash /> Delete
         </button>
       </div>
     </div>

@@ -101,4 +101,6 @@ error handling: on item not found
 
 Tests / Bugs
 
+List ascending / desc
+
 */

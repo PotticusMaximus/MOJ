@@ -7,11 +7,8 @@ body {
   line-height: 1.5;
 }
 
-button {
-  border: none;
-}
-
 .iconButton {
+  border: none;
   background-color: inherit;
   color: #f4f4f4;
   text-align: end;
@@ -45,17 +42,6 @@ button {
   gap: 2px;
   flex-wrap: stretch;
   z-index: 1;
-}
-
-.appHeader::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: url("../public/office.jpeg") center center;
-  background-size: 100%;
-  filter: blur(1px);
-  opacity: 0.65;
-  z-index: -1;
 }
 
 .noteBox {
@@ -104,21 +90,32 @@ button {
 }
 
 .buttonBar {
-  width: auto;
+  width: 30%;
   color: #1d1d1b;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   gap: 5px;
-  margin-bottom: 20px;
-  margin-left: 10px;
+  margin-right: 10px;
 }
 
+.buttonBarCell {
+  width: auto;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+.buttonBarCell p {
+  margin: 0;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
 .windowClose {
   color: #005ea5;
   font-size: x-large;
   height: 50px;
   width: 25%;
   background-color: inherit;
+  border: none;
 }
 
 .windowClose :hover {
@@ -126,27 +123,41 @@ button {
 }
 
 .taskButton {
+  background-color: white;
+  border: 1px solid #005ea5;
+  color: #005ea5;
+  padding: 5px;
+  margin-right: 2px;
+  font-size: x-large;
+  height: auto;
+  min-width: 8rem;
+}
+
+.taskButton-fill {
+  border: none;
   background-color: #005ea5;
   color: white;
   padding: 5px;
   margin-right: 2px;
   font-size: x-large;
   height: auto;
-  width: auto;
+  min-width: 8rem;
 }
-
 .taskButton-delete {
-  background-color: darkred;
-  color: white;
+  background-color: white;
+  border: 1px solid darkred;
+  color: darkred;
   font-size: x-large;
   padding: 5px;
   margin-right: 2px;
+  min-width: 8rem;
 }
 
 .taskButton-delete:disabled {
   display: none;
 }
 
+.taskButton-fill:hover,
 .taskButton:hover {
   background-color: #66d0f3;
   color: #005ea5;
@@ -162,15 +173,23 @@ button {
 }
 
 .taskButton-check {
-  background-color: green;
-  color: white;
-  padding: 2px;
+  background-color: white;
+  border: 1px solid green;
+  color: green;
+  padding: 5px;
   margin-right: 2px;
+  min-width: 8rem;
 }
 
 .taskButton-check:hover {
   background-color: palegreen;
   color: green;
+}
+
+.splitPage {
+  display: flex;
+  flex-direction: row;
+  gap: 8%;
 }
 
 .grid {
@@ -184,13 +203,15 @@ button {
 }
 
 .row {
-  align-items: stretch;
-  grid-template-columns: 0.5fr 1fr 3fr 2fr 1fr 0.5fr 1fr;
-  gap: 10px;
-  row-gap: 5px;
-  margin-bottom: 15px;
-  background-color: #f4f4f4;
-  display: grid;
+  background-color: white;
+  border-bottom: 2px solid lightgray;
+}
+
+.gridButtonBar {
+  display: flex;
+  flex-direction: row;
+  width: fit-content;
+  margin-bottom: 20px;
 }
 
 .rowHeader {
@@ -203,7 +224,23 @@ button {
 }
 
 .cell {
-  text-align: center;
+  display: flex;
+  flex-direction: row;
+  align-items: top;
+  text-align: left;
+  gap: 5px;
+}
+
+.cell p {
+  margin: 0;
+  margin-bottom: 5px;
+  align-self: center;
+}
+
+.cell svg {
+  margin: 0;
+  margin-bottom: 5px;
+  align-self: center;
 }
 
 .cellHeader {
@@ -244,10 +281,6 @@ button {
   margin-left: 10%;
 }
 
-p.mobile-only {
-  display: none;
-}
-
 /* Mobile friendly styling */
 
 @media (max-width: 768px) {
@@ -262,13 +295,12 @@ p.mobile-only {
 
   .buttonBar {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
   }
 
   .row {
     margin-top: 10px;
     padding: 2px;
-    grid-template-columns: 1fr;
   }
 
   .cell {
@@ -277,19 +309,8 @@ p.mobile-only {
     padding: 2px;
   }
 
-  .cell[data-label]::before {
-    content: attr(data-label);
-    font-weight: bold;
-    margin-bottom: 4px;
-    color: #555;
-  }
-
   .rowHeader {
     display: none;
-  }
-
-  p.mobile-only {
-    display: inline;
   }
 
   .noteBox {

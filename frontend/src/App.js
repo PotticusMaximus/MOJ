@@ -294,8 +294,7 @@ function App() {
             <div className="titleBox">
               <h2
                 style={{
-                  color: "white",
-                  backgroundColor: " #1d609d",
+                  color: "black",
                   padding: "2px",
                   width: "max-content",
                   marginLeft: "10px",
@@ -304,24 +303,37 @@ function App() {
                 Tasks on page: {`${tasks.length}`}
               </h2>
             </div>
-            <div className="buttonBar">
+          </div>
+        </div>
+        <div className="splitPage">
+          <div className="buttonBar">
+            <div className="buttonBarCell">
+              <p>Create Task</p>
               <button
-                className="taskButton"
+                className="taskButton-fill"
                 title="Create new Task"
                 onClick={() => openModal("Create", {})}
               >
                 <FaPlus />
               </button>
+            </div>
+            <div className="buttonBarCell">
+              <p>Load Full Task List</p>
               <button
-                className="taskButton"
+                className="taskButton-fill"
                 title="Fetch all tasks"
                 onClick={getTasks}
               >
                 {" "}
                 <FaArrowsRotate />
               </button>
+            </div>
+            <div className="buttonBarCell">
+              <p>
+                Sort List by Due Date {sortDate ? "Descending" : "Ascending"}
+              </p>
               <button
-                className="taskButton"
+                className="taskButton-fill"
                 title="Sort List by Due Date"
                 onClick={() => {
                   setTasks(orderByDate(tasks, sortDate));
@@ -331,14 +343,18 @@ function App() {
                 <FaCalendar style={{ marginRight: "5px" }} />
                 {sortDate ? <FaSortAmountDown /> : <FaSortAmountUp />}
               </button>
-              <input
-                placeholder="ID to search..."
+            </div>
+            <div className="buttonBarCell">
+              <p>Search Task by ID</p>
+              <textarea
+                placeholder="Search ID"
                 style={{
+                  resize: "none",
+                  fontFamily: "inherit",
                   minWidth: "25%",
-                  marginLeft: "10px",
-                  marginRight: "5px",
-                  width: "25%",
-                  maxWidth: "25%",
+                  width: "auto",
+                  maxWidth: "100%",
+                  marginBottom: "5px",
                 }}
                 onChange={handleSearchInput}
                 onKeyDown={(e) => {
@@ -348,18 +364,21 @@ function App() {
                   }
                 }}
                 disabled={tasks.length === 1}
-              ></input>
+              ></textarea>
               <button
                 disabled={tasks.length === 1}
-                className="taskButton"
+                className="taskButton-fill"
                 title="Search for task ID"
                 onClick={getTasks}
               >
                 <FaSearch />
               </button>
+            </div>
+            <div className="buttonBarCell">
+              <p>{complete ? "Hide" : "Show"} Completed Tasks</p>
               <button
                 disabled={tasks.length === 1}
-                className="taskButton"
+                className="taskButton-fill"
                 title={`Showing Complete Tasks: ${complete}`}
                 onClick={() => {
                   getTasks();
@@ -369,28 +388,7 @@ function App() {
               </button>
             </div>
           </div>
-        </div>
-        <div className="grid">
-          <div className="rowHeader">
-            <div className="cellHeader">
-              <h3>ID </h3>
-            </div>
-            <div className="cellHeader">
-              <h3>Title </h3>
-            </div>
-            <div className="cellHeader">
-              <h3>Description </h3>
-            </div>
-            <div className="cellHeader">
-              <h3>Status </h3>
-            </div>
-            <div className="cellHeader">
-              <h3>Due</h3>
-            </div>
-            <div></div>
-            <div></div>
-          </div>
-          {handleTasks(tasks)}
+          <div className="grid">{handleTasks(tasks)}</div>
         </div>
         {handleModal()}
         {handleMsgModal()}
